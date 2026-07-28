@@ -1,0 +1,7 @@
+allure_python_commons==2.16.0
+pytest==9.1.1
+loguru==0.7.3
+PyYAML,
+paramiko,
+requests,
+jsonschema

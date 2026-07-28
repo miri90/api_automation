@@ -1,0 +1,23 @@
+[
+  {
+    "tit  le":"正常重命名分支",
+    "data":{
+      "new_name":"my_renamed_branch"
+    },
+    "type":"normal",
+    "expected":{
+      "status_code": 201,
+      "schema": {
+        "type": "object",
+        "required": ["name","commit"]
+      }
+    }
+  },
+  {
+    "title":"异常-参数为空",
+    "data":{
+      "new_name":null
+    },
+    "type":"exception"
+  }
+]

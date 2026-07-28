@@ -1,0 +1,21 @@
+env: test
+test:
+    base_config:
+        url: https://api.github.com
+        headers:
+            Accept: application/vnd.github+json
+            Authorization: your token
+    case_type: all #exception,normal,all
+    #服务器信息
+    server_info:
+        hostname: "xxx.xx.xx.xx"
+        username: "your host name"
+        password: "password"
+    #所有接口通用校验
+    total_seconds: 10
+#list: [1,2,3]
+#lst:
+#    - 1
+#    - 2
+#    - 3
+#bool: true

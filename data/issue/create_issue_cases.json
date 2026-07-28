@@ -1,0 +1,66 @@
+[
+  {
+    "title": "正常创建issue",
+    "type": "normal",
+    "data": {
+      "title": "Login button is broken",
+      "body": "Click login button causes error"
+    },
+    "expected": {
+      "status_code":201,
+      "schema": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "pattern": "Login button is broken"
+          }
+        }
+
+      }
+    }
+  },
+  {
+    "title": "必填字段title校验-title缺失",
+    "type": "exception",
+    "data": {
+       "body": "test issue"
+    },
+    "expected": {
+      "status_code": 422
+    }
+  },
+  {
+    "title": "必填字段title校验,title=null",
+    "type": "exception",
+    "data": {
+       "title": null,
+       "body": "test issue"
+    },
+     "expected": {
+      "status_code": 422
+    }
+  },
+  {
+    "title": "可选字段body不填",
+    "type": "normal",
+    "data": {
+      "title": "find a critical bug"
+    },
+    "expected": {
+      "status_code":201,
+      "schema": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "pattern": "find a critical bug"
+          }
+        }
+
+      }
+    }
+  }
+]
