@@ -1,0 +1,12 @@
+[
+  {
+    "title": "关闭issue",
+    "type": "normal",
+    "data": {
+      "state": "closed"
+    },
+    "expected": {
+      "status_code": 200
+    }
+  }
+]

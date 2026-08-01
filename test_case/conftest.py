@@ -17,3 +17,9 @@ def http_session():
     logger.debug(f"session.headers:{session.headers}")
     yield session
     session.close()
+
+
+@pytest.fixture(scope="session")
+def api_deps():
+    """存储接口依赖字段的全局字典（如token、user_id等）"""
+    return {}
