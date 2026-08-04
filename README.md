@@ -1,13 +1,21 @@
-# api_automation
 这是一个pytest+allure+request实现的接口自动化测试项目，测试所用的接口来自于github api
+
 这个项目具备以下功能：
 
 - fixture实现测试环境准备（所有请求头加token）
 - 测试数据解藕/json数据驱动（测试数据包含接口传参用例和接口响应断言）
 - 接口请求参数化
+- 接口依赖
 - allure生成测试报告
 - 日志管理
-  
+- 测试用例顺序管理
+
+# 功能0-fixture实现测试环境准备
+
+- 在测试用例目录下新建一个conftest.py, 在这个文件里定义一个装饰器fixture,将属性autouse=True, scope=”session”
+- 该fixture实现了在发起http请求时，在所有请求头加上token
+- 需要RequestUtil工具类配合，使用单例模式，并且类属性session也要实现单例模式
+
 # 功能1-测试数据解藕
 
 目的：为了保证接口信息更改，测试用例数据修改，接口响应断言方式改变，不会影响代码，**实现代码和用例的解藕**
@@ -51,11 +59,13 @@ read_json函数传入一个形参，即config.yaml文件中case_type的值，用
 
 测试数据json文件中请求参数可以传“get_fun_xx（xx..)”或者”select …“sql语句，
 
-遍历这个json对象时，如果识别到有json值以get_fun_或者select开头，
+遍历这个json对象时，如果识别到有json值以get_fun_或者select开头，或是请求路径/请求体中包含`${variable}`这个表达式
 
 get_fun_会将这个字符串用eval转换成python表达式，去调用GetFunUtil类的同名方法
 
-以select方法会将这个sql命令传给ShellUtil里的处理sql语句的函数，获取sql返回值
+以select开头，方法会将这个sql命令传给ShellUtil里的处理sql语句的函数，获取sql返回值
+
+求路径/请求体中包含`${variable}，` 去变量池（一个session级别的返回字典的fixture)取以variable作为key的值
 
 最后用处理过的值替换json文件里的值
 
@@ -89,7 +99,14 @@ get_fun_会将这个字符串用eval转换成python表达式，去调用GetFunUt
 - 断言名称可以在allure测试报告中展示
     - 用了with allure.step(f””)
 
-# 功能3- allure实现测试报告
+# 功能 3 - 接口依赖
+
+1. 变量池：定义一个session级别的 返回字典的 fixture
+2. jsonpath提取响应体字段: 将Jsonpath写到测试用例json文件中，用jsonpath取响应体字段值，存到变量池
+3. 识别接口依赖变量：正则表达式匹配`${variable}`表达式
+4. 用匹配结果作为key去变量池取值替换
+
+# 功能4- allure实现测试报告
 
 1. 安装allure，在requirements.txt里加上allure-pytest依赖
 2. 用例中添加装饰器/注解@allure.epic feature story step/with allure.step() allure.dynamic.title()，使得测试报告里有项目名称 模块名称 测试用例名称 步骤名称 测试用例名称
@@ -98,14 +115,14 @@ get_fun_会将这个字符串用eval转换成python表达式，去调用GetFunUt
 
 测试报告展现测试用例成功/失败结果，失败原因
 
-# 功能4-日志管理
+# 功能5-日志管理
 
 - 使用loguru.add(sink参数实现了三重日志输出：控制台、日志文件、allure测试报告
 - 使用magic method new方法实现了LogUtil的单例模式
 - 分级输出，不同level的日志输出到不同的日志文件中
 
-# 功能5-fixture实现测试环境准备
+# 功能6 - 测试用例顺序管理
 
-- 在测试用例目录下新建一个conftest.py, 在这个文件里定义一个装饰器fixture,将属性autouse=True, scope=”session”
-- 该fixture实现了在发起http请求时，在所有请求头加上token
-- 需要RequestUtil工具类配合，使用单例模式，并且类属性session也要实现单例模式
+当前主流替代是**活跃维护**的 `pytest-order` 插件，用 `@pytest.mark.order()`
+
+有一些新特性相对顺序和first last等新特性，可以了解一下
