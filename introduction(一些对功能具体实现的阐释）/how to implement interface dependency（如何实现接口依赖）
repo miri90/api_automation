@@ -85,7 +85,7 @@ def extract_json_value(data, case, api_deps):
 
 ```json
 {
-	"issue_number":${issue_number}
+	"issue_number":${issue_number}	
 }
 ```
 
