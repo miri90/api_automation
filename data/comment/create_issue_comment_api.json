@@ -1,0 +1,4 @@
+{
+  "path": "/repos/miri90/wenda/issues/${issue_number}/comments",
+  "method": "post"
+}

@@ -25,6 +25,8 @@ class RequestUtil:
                 r = self.session.get(url)
             elif method == "post":
                 r = self.session.post(url, json=playload)
+            elif method=="patch":
+                r=self.session.patch(url,json=playload)
 
             logger.debug(f"接口url:{url}")
             logger.debug(f"接口请求头:{self.session.headers}")

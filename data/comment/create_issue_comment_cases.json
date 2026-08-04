@@ -1,0 +1,12 @@
+[
+  {
+    "title": "正常创建一个issue的评论",
+    "type": "normal",
+    "data": {
+      "body": "update the ${issue_number}th issue"
+    },
+    "expected": {
+      "status_code": 201
+    }
+  }
+]

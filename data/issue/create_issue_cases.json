@@ -19,6 +19,9 @@
         }
 
       }
+    },
+    "extract": {
+      "issue_number": "$.number"
     }
   },
   {
@@ -59,7 +62,6 @@
             "pattern": "find a critical bug"
           }
         }
-
       }
     }
   }

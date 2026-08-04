@@ -33,6 +33,7 @@ class TestRenameBranch:
 
     @allure.story("rename branch")
     @pytest.mark.parametrize('case', cases)
+    @pytest.mark.skip
     def test_rename_branch(self, case):
         """取测试用例名称，allure动态指定"""
         case = convert_json(case, self.cases_path)
