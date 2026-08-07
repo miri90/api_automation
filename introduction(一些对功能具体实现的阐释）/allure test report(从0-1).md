@@ -122,7 +122,9 @@ allure generate ./result/ -o ./report/ --clean
 
 在存放`json文件的目录(即alluredir)`下 ，新建environment.properties
 
-```python
+```
+
+python
 systemVersion=macOS Monterey
 pythonVersion=3.11
 allureVersion=2.44.0
