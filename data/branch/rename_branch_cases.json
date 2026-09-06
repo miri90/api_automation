@@ -1,6 +1,6 @@
 [
   {
-    "tit  le":"正常重命名分支",
+    "title":"正常重命名分支",
     "data":{
       "new_name":"my_renamed_branch"
     },
